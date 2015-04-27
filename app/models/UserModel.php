@@ -1,4 +1,9 @@
 <?php
+/**
+ * UserModel
+ * @author Long Do
+ *
+ */
 class UserModel extends Eloquent{
     
     protected $table = 'dtb_user';
@@ -12,9 +17,9 @@ class UserModel extends Eloquent{
     }
     
     public static function checkLogin($arrData){
-        $count = UserModel::where('username', $arrData['username'])
+        $userCount = UserModel::where('username', $arrData['username'])
                         ->where('password', hash('sha256', $arrData['password']))
                         ->count();
-        return (($count == 1) ? true : false);
+        return (($userCount == 1) ? true : false);
     }
 }

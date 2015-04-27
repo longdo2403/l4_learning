@@ -2,7 +2,7 @@
 
 /**
  * UserModel_BaseTest
- * This class will delete all data then create dummy data for Test
+ * This class will truncate and create data for UserModel
  * 
  * @author Long Do
  *
@@ -14,7 +14,15 @@ class UserModel_BaseTest extends TestCase {
         parent::setUp();
         $this->setUpUserList();
     }
-    
+
+    public function tearDown(){
+        parent::tearDown();
+        $this->setUpUserList();
+    }
+
+    /**
+     * Truncate and Create Data for User Table
+     */
     public function setUpUserList(){
         $arrUsers = array(
             array(
@@ -33,21 +41,11 @@ class UserModel_BaseTest extends TestCase {
                 'password'      =>  hash('sha256', '123456')
             )
         );
-
         //delete all record in dtb_user
         UserModel::truncate();
-
         //Insert dummy data
         foreach ($arrUsers as $user){
             DB::table($this->table)->insert($user);
         }
-    }
-    
-    public function testByPassThisClass(){
-       //$this->assertTrue(true);
-    }
-    
-    public function tearDown(){
-        parent::tearDown();
     }
 }

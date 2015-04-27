@@ -3,8 +3,8 @@
 /**
  * @author Long Do
  * @TODO
- * Test UserList function return list of user when database have data
- * Test UserList function return empty when database dont have data
+ * Test UserList function return data case when database have data
+ * Test UserList function return empty case when database dont have data
  * 
  */
 class UserModel_UserListTest extends UserModel_BaseTest {
@@ -13,7 +13,14 @@ class UserModel_UserListTest extends UserModel_BaseTest {
         parent::setUp();
     }
     
-    public function testUserListReturnData(){
+    public function tearDown(){
+        parent::tearDown();
+    }
+
+    /**
+     * Test function UserList Return Empty.
+     */
+    public function testUserListReturnDataCase(){
         $this->actual = UserModel::UserList()->toArray();
         $this->expected = array(
             array(
@@ -34,15 +41,14 @@ class UserModel_UserListTest extends UserModel_BaseTest {
         );
         $this->verify();
     }
-    
-    public function testUserListReturnEmpty(){
+
+    /**
+     * Test function UserList Return Empty.
+     */
+    public function testUserListReturnEmptyCase(){
         UserModel::truncate();
         $this->actual = UserModel::UserList()->toArray();
         $this->expected = array();
         $this->verify();
-    }
-    
-    public function tearDown(){
-        parent::tearDown();
     }
 }
