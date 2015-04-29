@@ -12,3 +12,4 @@
 */
 
 Route::any('/', array('as' => 'index.login', 'uses' => 'HomeController@login'));
+Route::any('/member', array('as' => 'member.index', 'uses' => 'HomeController@member'));

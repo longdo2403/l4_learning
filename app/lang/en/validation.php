@@ -102,6 +102,6 @@ return array(
     'attributes' => array(
         'username'          =>  'Username',
         'password'          =>  'Password'
-),
+    ),
 
 );

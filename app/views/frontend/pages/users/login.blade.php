@@ -4,9 +4,6 @@
   <div class="panel-heading">Login Form</div>
   <div class="panel-body">
     <form class="form-horizontal" method="post" action="">
-        @if(Session::has('message'))
-            {{ Session::get('message') }}
-        @endif
         <?php $errs = $errors->all(); ?>
         @if (!empty($errs))
         <p class="alert alert-danger">

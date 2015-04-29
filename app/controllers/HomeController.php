@@ -5,14 +5,26 @@
  *
  */
 class HomeController extends BaseController {
-    
+
+    /* Member variables */
     private $rules;
-    
+    private $message;
+
+    /**
+     * Construct function
+     */
     public function __construct(){
+        // Filter csrf attack
         $this->beforeFilter('csrf', array('on'=>'post'));
+        //Create message object
+        $this->message = new MessageHelper();
+        //Create rules for validation purpose
         $this->setRules();
     }
     
+    /**
+     * setRules function
+     */
     private function setRules(){
         $this->rules = array(
             'username'    =>  'required',
@@ -20,6 +32,9 @@ class HomeController extends BaseController {
         );
     }
     
+    /**
+     * Login function
+     */
     public function login(){
         if (Request::isMethod('post')){
             $params = Input::all();
@@ -29,19 +44,34 @@ class HomeController extends BaseController {
                                 ->withInput()
                                 ->withErrors($validator);
             } else {
-                $ret = UserModel::checkLogin($params);
+                $ret = User::checkLogin($params);
                 if ($ret){
-                    return Redirect::back()
-                                    ->withInput()
-                                    ->with('message', '<p class="alert alert-success">Login OK !</p>');
+                    $user = User::where('username', Input::get('username'))->first();
+                    Auth::login($user);
+                    
+                    //create message
+                    $this->message->setType('success');
+                    $this->message->setMess('Login OK !');
+                    return Redirect::route('member.index')
+                                    ->with('message', $this->message->create());
                 } else {
+                    //create message
+                    $this->message->setType('danger');
+                    $this->message->setMess('Login Failed !');
                     return Redirect::back()
                                     ->withInput()
-                                    ->with('message', '<p class="alert alert-danger">Login Failed !</p>');;
+                                    ->with('message', $this->message->create());
                 }
             }
         }
         return View::make('frontend.pages.users.login');
+    }
+    
+    /**
+     * Member function
+     */
+    public function member(){
+        return View::make('frontend.pages.users.index');
     }
 
 }
