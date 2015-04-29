@@ -6,7 +6,7 @@
  */
 class HomeController extends BaseController {
     
-    protected $rules;
+    private $rules;
     
     public function __construct(){
         $this->beforeFilter('csrf', array('on'=>'post'));
@@ -25,13 +25,19 @@ class HomeController extends BaseController {
             $params = Input::all();
             $validator = Validator::make($params, $this->rules);
             if ($validator->fails()) {
-                return Redirect::back()->withInput()->withErrors($validator);
+                return Redirect::back()
+                                ->withInput()
+                                ->withErrors($validator);
             } else {
                 $ret = UserModel::checkLogin($params);
                 if ($ret){
-                    return Redirect::back()->withInput()->with('message', '<p class="alert alert-success">Login OK !</p>');;
+                    return Redirect::back()
+                                    ->withInput()
+                                    ->with('message', '<p class="alert alert-success">Login OK !</p>');
                 } else {
-                    return Redirect::back()->withInput()->with('message', '<p class="alert alert-danger">Login Failed !</p>');;
+                    return Redirect::back()
+                                    ->withInput()
+                                    ->with('message', '<p class="alert alert-danger">Login Failed !</p>');;
                 }
             }
         }
