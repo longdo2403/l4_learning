@@ -7,30 +7,35 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait;
+    use UserTrait, RemindableTrait;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'dtb_user';
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'dtb_user';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password', 'remember_token');
-	
-	public static function UserList(){
-	    return User::select('id', 'username')->get();
-	}
-	
-	public static function checkLogin($arrData){
-	    $userCount = User::where('username', $arrData['username'])
-	    ->where('password', hash('sha256', $arrData['password']))
-	    ->count();
-	    return (($userCount == 1) ? true : false);
-	}
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = array('password', 'remember_token');
+    
+    /**
+     * @author Long Do
+     * 
+     * 
+     */
+    public static function UserList(){
+        return User::select('id', 'username')->get();
+    }
+    
+    public static function checkLogin($arrData){
+        $userCount = User::where('username', $arrData['username'])
+        ->where('password', hash('sha256', $arrData['password']))
+        ->count();
+        return (($userCount == 1) ? true : false);
+    }
 }

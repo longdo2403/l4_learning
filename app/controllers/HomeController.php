@@ -12,6 +12,7 @@ class HomeController extends BaseController {
 
     /**
      * Construct function
+     * @author Long Do
      */
     public function __construct(){
         //Filter csrf attack
@@ -34,12 +35,15 @@ class HomeController extends BaseController {
     
     /**
      * Home page
+     * @author Long Do
+     * @return view
      */
     public function index(){
         return View::make('frontend.pages.home.index');
     }
     /**
      * Login page
+     * @author Long Do
      */
     public function login(){
         if (Request::isMethod('post')){
@@ -76,10 +80,12 @@ class HomeController extends BaseController {
     }
     
     /**
-     * Member function
+     * Member page
+     * @author Long Do
+     * @return view
      */
     public function member(){
-        return View::make('frontend.pages.users.index');
+        $this->data['listUser'] = User::UserList();
+        return View::make('frontend.pages.users.index')->with($this->data);
     }
-
 }
