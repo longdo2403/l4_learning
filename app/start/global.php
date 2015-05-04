@@ -78,4 +78,12 @@ App::down(function()
 |
 */
 
+/**
+ * Custom 404 page
+ */
+App::missing(function($exception)
+{
+    return Redirect::route('page404');
+});
+
 require app_path().'/filters.php';

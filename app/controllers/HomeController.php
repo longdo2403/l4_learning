@@ -33,7 +33,13 @@ class HomeController extends BaseController {
     }
     
     /**
-     * Login function
+     * Home page
+     */
+    public function index(){
+        return View::make('frontend.pages.home.index');
+    }
+    /**
+     * Login page
      */
     public function login(){
         if (Request::isMethod('post')){
