@@ -24,11 +24,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $hidden = array('password', 'remember_token');
 	
 	public static function UserList(){
-	    return User::select('id', 'username', 'password')->get();
-	}
-	
-	public static function Detail($id){
-	    return User::find($id);
+	    return User::select('id', 'username')->get();
 	}
 	
 	public static function checkLogin($arrData){
@@ -37,5 +33,4 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    ->count();
 	    return (($userCount == 1) ? true : false);
 	}
-
 }
