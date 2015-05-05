@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"phpunit/php-code-coverage": "~2.0"
+		"phpunit/php-code-coverage": "~2.0",
+		"gloudemans/shoppingcart": "~1.2"
 	},
 	"autoload": {
 		"classmap": [
