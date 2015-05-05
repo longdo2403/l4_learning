@@ -47,15 +47,15 @@ return array(
     ),
     "mimes"                => "The :attribute must be a file of type: :values.",
     "min"                  => array(
-        "numeric" => "The :attribute must be at least :min.",
+        "numeric" => "The input must be at least :min.",
         "file"    => "The :attribute must be at least :min kilobytes.",
         "string"  => "The :attribute must be at least :min characters.",
         "array"   => "The :attribute must have at least :min items.",
     ),
     "not_in"               => "The selected :attribute is invalid.",
-    "numeric"              => "The :attribute must be a number.",
+    "numeric"              => "You should input a number.",
     "regex"                => "The :attribute format is invalid.",
-    "required"             => "The :attribute field is required.",
+    "required"             => "This field is required.",
     "required_if"          => "The :attribute field is required when :other is :value.",
     "required_with"        => "The :attribute field is required when :values is present.",
     "required_with_all"    => "The :attribute field is required when :values is present.",
@@ -101,7 +101,7 @@ return array(
 
     'attributes' => array(
         'username'          =>  'Username',
-        'password'          =>  'Password'
+        'password'          =>  'Password',
     ),
 
 );

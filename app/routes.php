@@ -17,7 +17,10 @@ Route::any('/', array('as' => 'login', 'uses' => 'HomeController@login'));
 /** Member route **/
 Route::group(array('prefix' => '/member', 'before' => 'auth'), function()
 {
-    Route::any('/product', array('as' => 'member.product', 'uses' => 'ProductController@listProduct'));
+    Route::get('/product', array('as' => 'member.product', 'uses' => 'ProductController@listProduct'));
+    Route::get('/logout', array('as' => 'member.logout', 'uses' => 'HomeController@logout'));
+    Route::post('/addtocart', array('as' => 'member.addtocart', 'uses' => 'ProductController@addToCart'));
+    Route::get('/checkout', array('as' => 'member.checkout', 'uses' => 'CartController@checkout'));
 });
 
 /** Thrown error route **/

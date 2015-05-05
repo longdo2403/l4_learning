@@ -7,8 +7,9 @@
 class HomeController extends BaseController {
 
     /* Member variables */
-    private $rules;
-    private $message;
+    protected $rules;
+    protected $message;
+    protected $data;
 
     /**
      * Construct function
@@ -39,10 +40,12 @@ class HomeController extends BaseController {
      */
     public function login(){
         if (Request::isMethod('post')){
+            //get all params from request
             $params = Input::all();
+            //create validator object
             $validator = Validator::make($params, $this->rules);
             if ($validator->fails()) {
-                //Redirect previous page with validation errors
+                //Redirect previous page with validation errors and old input
                 return Redirect::back()
                                 ->withInput()
                                 ->withErrors($validator);
@@ -52,10 +55,9 @@ class HomeController extends BaseController {
                     $user = User::where('user_name', Input::get('username'))->first();
                     Auth::login($user);
                     //Redirect to member page with success message
-                    return Redirect::route('member.index')
-                                    ->with('message', $this->message->create());
+                    return Redirect::route('member.product');
                 } else {
-                    //create message
+                    //Create message
                     $this->message->setType('danger');
                     $this->message->setMess('Your username/password combination was incorrect !');
                     //Redirect previous page with error message
@@ -65,6 +67,25 @@ class HomeController extends BaseController {
                 }
             }
         }
-        return View::make('frontend.pages.users.login');
+        //Return view and pass data to view
+        $this->data['title'] = 'Login Form';
+        return View::make('frontend.pages.users.login')->with($this->data);
+    }
+
+    /**
+     * Logout function
+     * @author Long Do
+     */
+    public function logout(){
+        
+        //Logout account
+        Auth::logout();
+        //Delete cart
+        Cart::destroy();
+        //Create message
+        $this->message->setType('success');
+        $this->message->setMess('Your are now logged out!');
+        //Redirect route and pass message
+        return Redirect::route('login')->with('message', $this->message->create());
     }
 }

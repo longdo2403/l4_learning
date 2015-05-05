@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>TTV Exam </title>
+    <title>TTV - {{@$title}}</title>
     <!-- CSS here -->
     <link rel="stylesheet" href="{{asset('packages/utils/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('packages/css/style.css')}}">
