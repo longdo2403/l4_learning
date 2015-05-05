@@ -14,7 +14,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      *
      * @var string
      */
-    protected $table = 'dtb_user';
+    protected $table = 'tbl_user';
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -24,17 +24,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     protected $hidden = array('password', 'remember_token');
     
     /**
+     * Check login function
      * @author Long Do
-     * 
-     * 
+     * @param array $arrData
+     * @return bool
      */
-    public static function UserList(){
-        return User::select('id', 'username')->get();
-    }
-    
-    public static function checkLogin($arrData){
-        $userCount = User::where('username', $arrData['username'])
+    public static function checkLogin($arrData) {
+        $userCount = User::where('user_name', $arrData['username'])
         ->where('password', hash('sha256', $arrData['password']))
+        ->where('isactive', IS_ACTIVE)
         ->count();
         return (($userCount == 1) ? true : false);
     }

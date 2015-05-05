@@ -34,14 +34,6 @@ class HomeController extends BaseController {
     }
     
     /**
-     * Home page
-     * @author Long Do
-     * @return view
-     */
-    public function index(){
-        return View::make('frontend.pages.home.index');
-    }
-    /**
      * Login page
      * @author Long Do
      */
@@ -57,18 +49,15 @@ class HomeController extends BaseController {
             } else {
                 $ret = User::checkLogin($params);
                 if ($ret){
-                    $user = User::where('username', Input::get('username'))->first();
+                    $user = User::where('user_name', Input::get('username'))->first();
                     Auth::login($user);
-                    //create message
-                    $this->message->setType('success');
-                    $this->message->setMess('Login OK !');
                     //Redirect to member page with success message
                     return Redirect::route('member.index')
                                     ->with('message', $this->message->create());
                 } else {
                     //create message
                     $this->message->setType('danger');
-                    $this->message->setMess('Login Failed !');
+                    $this->message->setMess('Your username/password combination was incorrect !');
                     //Redirect previous page with error message
                     return Redirect::back()
                                     ->withInput()
@@ -77,15 +66,5 @@ class HomeController extends BaseController {
             }
         }
         return View::make('frontend.pages.users.login');
-    }
-    
-    /**
-     * Member page
-     * @author Long Do
-     * @return view
-     */
-    public function member(){
-        $this->data['listUser'] = User::UserList();
-        return View::make('frontend.pages.users.index')->with($this->data);
     }
 }
