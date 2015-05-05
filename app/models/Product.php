@@ -33,10 +33,11 @@ class Product extends Eloquent {
      * check stock of product
      * @author Long Do
      * @param integer quantity from user
-     * @param integer quantity from DB
+     * @param integer product_id from DB
      * @return bool
      */
-    public static function checkStock($qty, $qty_db){
-        return (($qty > $qty_db) ? false : true);
+    public static function checkStock($qty, $product_id){
+        $qtyDB = self::detailProduct($product_id)->stock_quantity;
+        return (($qty > $qtyDB) ? false : true);
     }
 }

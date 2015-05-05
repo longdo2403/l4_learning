@@ -20,7 +20,9 @@ Route::group(array('prefix' => '/member', 'before' => 'auth'), function()
     Route::get('/product', array('as' => 'member.product', 'uses' => 'ProductController@listProduct'));
     Route::get('/logout', array('as' => 'member.logout', 'uses' => 'UserController@logout'));
     Route::post('/addtocart', array('as' => 'member.addtocart', 'uses' => 'ProductController@addToCart'));
-    Route::get('/checkout', array('as' => 'member.checkout', 'uses' => 'CartController@checkout'));
+    Route::any('/checkout', array('as' => 'member.checkout', 'uses' => 'CartController@checkout'));
+    Route::post('/checkCoupon', array('as' => 'member.check_coupon', 'uses' => 'CartController@checkCoupon'));
+    Route::post('/register_order', array('as' => 'member.register_order', 'uses' => 'CartController@regOrder'));
 });
 
 /** Thrown error route **/

@@ -65,13 +65,13 @@ class ProductController extends BaseController {
                     //Thrown 404 page
                     App::abort(404);
                 } else {
-                    //check Stock
+                    //Check stock quantity
                     $qty = $params[Input::get('pro_name')];
-                    if (Product::checkStock($qty, $objProduct->stock_quantity)){
-                        // add product to cart
+                    if (Product::checkStock($qty, $objProduct->id)){
+                        //Add product to cart
                         Cart::add($objProduct->id, $objProduct->name, $qty,
                                   $objProduct->sale_price);
-                        //redirect to checkout page
+                        //Redirect to checkout page
                         return Redirect::route('member.checkout');
                     } else {
                         //Thrown message warning
@@ -82,7 +82,6 @@ class ProductController extends BaseController {
                                         ->with('message', $this->message->create());
                     }
                 }
-                
             }
         }
     }

@@ -23,7 +23,6 @@
                     </button>
                     <p>{{ Session::get('message')['mess'] }}</p>
                 </div>
-                
             @endif
             @yield('content')
         </div>

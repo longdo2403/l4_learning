@@ -26,7 +26,7 @@
     <?php foreach ($listProduct as $index => $item): ?>
      <div class="w-row">
         <div class="w-col w-col-1">
-           <div>{{ $index+1 }}</div>
+           <div>{{ $index + 1 }}</div>
         </div>
         <div class="w-col w-col-5">
            <div><?= SecurityHelper::xss_clean($item->name); ?></div>
@@ -50,6 +50,16 @@
         </div>
      </div>
      <?php endforeach; ?>
+      <div class="w-row">
+        <div class="w-col w-col-9"></div>
+        <div class="w-col w-col-3">
+           <div class="w-form">
+              <form id="email-form" name="email-form" data-name="Email Form" action="{{route('member.checkout')}}">
+                <input class="w-button" type="submit" value="Checkout" data-wait="Please wait..." style="background-color:blue">
+              </form>
+           </div>
+        </div>
+     </div>
 <?php endif; ?>
 
 @stop
