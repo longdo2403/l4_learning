@@ -1,10 +1,10 @@
 <?php
 /**
- * HomeController
+ * UserController
  * @author Long Do
  *
  */
-class HomeController extends BaseController {
+class UserController extends BaseController {
 
     /* Member variables */
     protected $rules;

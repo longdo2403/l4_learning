@@ -75,9 +75,11 @@ class ProductController extends BaseController {
                         return Redirect::route('member.checkout');
                     } else {
                         //Thrown message warning
-                        $this->message->setType('warning');
+                        $this->message->setType('danger');
                         $this->message->setMess("The number of {$objProduct->name} is not enough to sell.");
-                        return Redirect::back()->with('message', $this->message->create());
+                        return Redirect::back()
+                                        ->withInput()
+                                        ->with('message', $this->message->create());
                     }
                 }
                 
